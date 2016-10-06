@@ -1,3 +1,14 @@
-RewriteEngine On
-RewriteCond %{games.html} !-f
-RewriteRule ^([^\.]+)$ $1.html [NC,L]
+<Files ~ "^\.(htaccess|htpasswd)$">
+deny from all
+</Files>
+Options -Indexes
+AuthUserFile .htpasswd
+AuthGroupFile /dev/null
+AuthName "Please enter your ID and password"
+AuthType Basic
+require valid-user
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^(doolangames\.com)(:80)? [NC]
+RewriteRule ^(.*) http://www.doolangames.com/$1 [R=301,L]
+DirectoryIndex index.html games.html
+order deny,allow
